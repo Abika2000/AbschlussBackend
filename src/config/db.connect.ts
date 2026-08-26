@@ -1,6 +1,6 @@
 import mysql, { type OkPacket, type RowDataPacket } from 'mysql2';
 import { existsSync } from 'node:fs';
-import { loadEnvFile } from 'node:process';
+import process, { loadEnvFile } from 'node:process';
 
 if(existsSync(".env"))
 {
@@ -8,11 +8,11 @@ if(existsSync(".env"))
 }
 
 export const db = mysql.createConnection({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'wibi',
+  host: process.env.DB_HOST || '127.0.0.1',
+  user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'WibiTest106',
-  database: process.env.DB_NAME || 'BackendDb',
-  port: Number(process.env.DB_PORT || 3306)
+  database: process.env.DB_NAME || 'DBBackendAbschluss',
+  port: Number(process.env.DB_PORT || 8070)
 });
 
 db.connect((err: Error | null) => {
