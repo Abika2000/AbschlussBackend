@@ -14,7 +14,7 @@
 
 ## 2026-08-27
 
-- Completed Swagger response schemas for posts, comments, links, messages, images, lists, and action responses.
+- Completed Swagger response schemas for posts, comments, links, messages, lists, and action responses.
 - Corrected Swagger and README URLs to include the application's `/api` route prefix.
 - Verified all OpenAPI schema references resolve and the project typechecks successfully.
 
