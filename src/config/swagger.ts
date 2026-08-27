@@ -13,6 +13,7 @@ const options: swaggerJSDoc.Options = {
     tags: [
       { name: 'Authentication', description: 'User registration and session management' },
       { name: 'Chat', description: 'Users, posts, comments, links, and messages' },
+      { name: 'Weather', description: 'Daily weather from Open-Meteo' },
       { name: 'System', description: 'System endpoints' }
     ],
     components: {
@@ -159,6 +160,21 @@ const options: swaggerJSDoc.Options = {
             comments: { type: 'array', items: { $ref: '#/components/schemas/Comment' } },
             links: { type: 'array', items: { $ref: '#/components/schemas/Link' } }
           }
+        },
+        WeatherDay: {
+          type: 'object',
+          required: ['date', 'latitude', 'longitude', 'timezone'],
+          properties: {
+            date: { type: 'string', format: 'date' },
+            latitude: { type: 'number', example: 52.52 },
+            longitude: { type: 'number', example: 13.41 },
+            timezone: { type: 'string', example: 'Europe/Berlin' },
+            temperatureMax: { type: 'number', nullable: true, description: 'Maximum temperature in Celsius' },
+            temperatureMin: { type: 'number', nullable: true, description: 'Minimum temperature in Celsius' },
+            precipitation: { type: 'number', nullable: true, description: 'Precipitation in millimeters' },
+            windSpeedMax: { type: 'number', nullable: true, description: 'Maximum wind speed in km/h' },
+            weatherCode: { type: 'integer', nullable: true, description: 'WMO weather interpretation code' }
+          }
         }
       }
     },
@@ -176,6 +192,22 @@ const options: swaggerJSDoc.Options = {
           security: [{ bearerAuth: [] }],
           summary: 'Get the logged-in user',
           responses: { 200: { description: 'Current user' }, 401: { description: 'Login required' }, 404: { description: 'User not found' } }
+        }
+      },
+      '/api/weather/{date}': {
+        get: {
+          tags: ['Weather'],
+          summary: 'Get daily weather from Open-Meteo',
+          parameters: [
+            { name: 'date', in: 'path', required: true, schema: { type: 'string', format: 'date', example: '2026-08-27' } },
+            { name: 'latitude', in: 'query', required: true, schema: { type: 'number', minimum: -90, maximum: 90, example: 52.52 } },
+            { name: 'longitude', in: 'query', required: true, schema: { type: 'number', minimum: -180, maximum: 180, example: 13.41 } }
+          ],
+          responses: {
+            200: { description: 'Weather returned', content: { 'application/json': { schema: { $ref: '#/components/schemas/WeatherDay' } } } },
+            400: { description: 'Invalid date or coordinates', content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } } },
+            502: { description: 'Open-Meteo is unavailable', content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } } }
+          }
         }
       },
       '/api/users': {

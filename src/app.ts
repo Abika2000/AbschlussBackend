@@ -5,6 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger.ts';
 import { routerRegister } from './routes/register.ts';
 import { chatRouter } from './routes/chat.ts';
+import { weatherRouter } from './routes/weather.ts';
 
 const app: Express = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use(apiRateLimiter);
 
 app.use('/api/auth', authRateLimiter, routerRegister);
 app.use('/api', chatRouter);
+app.use('/api', weatherRouter);
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {}, {
   persistAuthorization: true

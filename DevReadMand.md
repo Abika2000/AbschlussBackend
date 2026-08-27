@@ -39,7 +39,10 @@ Chat routes are mounted under `/api` and use bearer authentication:
 - `GET` and `POST /api/posts/:id/links`
 - `POST /api/messages`
 - `GET /api/messages/:userId`
+- `GET /api/weather/:date?latitude=52.52&longitude=13.41`
 - `GET /health`
+
+The weather route uses the Open-Meteo Forecast API. It requests daily temperature, precipitation, wind speed, and WMO weather code data for the requested date. No Open-Meteo API key is required for this use.
 
 Swagger UI is available at `/api-docs` when the server is running.
 The raw OpenAPI document is available at `/api-docs.json`.

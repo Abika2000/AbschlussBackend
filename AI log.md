@@ -24,3 +24,5 @@
 - Moved all chat database queries from `chat.service.ts` into `database.service.ts`.
 - Confirmed `db.connect.ts` contains only generic MySQL connection setup.
 - Final TypeScript and formatting checks passed.
+- Created `TeachMe.md` with beginner explanations of imports, objects, functions, validation, routes, database queries, authentication, rate limiting, and Swagger.
+- Added `GET /api/weather/:date` using Open-Meteo daily forecast data, Zod validation, Swagger documentation, and README/TeachMe setup notes.
