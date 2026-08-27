@@ -1,4 +1,4 @@
-import mysql, { type OkPacket, type RowDataPacket } from 'mysql2';
+import mysql from 'mysql2';
 import { existsSync } from 'node:fs';
 import process, { loadEnvFile } from 'node:process';
 

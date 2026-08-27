@@ -15,7 +15,6 @@ The server reads `PORT` and `HOST` from the environment. The default port is `30
 
 - `users` stores registered users and password hashes.
 - `posts` stores post authors, titles, bodies, and timestamps.
-- `post_images` stores one optional image per post.
 - `comments` stores comments and their authors.
 - `post_links` stores external links attached to posts.
 - `messages` stores direct messages and read timestamps.
@@ -29,6 +28,18 @@ Authentication routes are mounted under `/api/auth`:
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `POST /api/auth/logout`
+
+Chat routes are mounted under `/api` and use bearer authentication:
+
+- `GET /api/users`
+- `GET /api/posts`
+- `GET`, `PATCH`, and `DELETE /api/posts/:id`
+- `GET` and `POST /api/posts/:id/comments`
+- `DELETE /api/comments/:id`
+- `GET` and `POST /api/posts/:id/links`
+- `POST /api/messages`
+- `GET /api/messages/:userId`
+- `GET /health`
 
 Swagger UI is available at `/api-docs` when the server is running.
 The raw OpenAPI document is available at `/api-docs.json`.

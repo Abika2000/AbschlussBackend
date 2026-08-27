@@ -17,7 +17,6 @@ The API listens on port `3000` by default. Apply `DBBackendAbschluss.sql` to cre
 
 - `users` stores registered users and password hashes.
 - `posts` stores posts and their authors.
-- `post_images` stores one optional image per post.
 - `comments` stores post comments and their authors.
 - `post_links` stores external links attached to posts.
 - `messages` stores direct messages between users.
@@ -30,6 +29,24 @@ Authentication routes:
 - `POST /api/auth/login`
 - `POST /api/auth/logout`
 
+Chat routes (all require a bearer token):
+
+- `GET /api/users`
+- `GET /api/posts?limit=20&offset=0`
+- `GET /api/posts/:id`
+- `POST /api/posts`
+- `PATCH /api/posts/:id`
+- `DELETE /api/posts/:id`
+- `GET /api/posts/:id/comments`
+- `POST /api/posts/:id/comments`
+- `DELETE /api/comments/:id`
+- `POST /api/posts/:id/links`
+- `GET /api/posts/:id/links`
+- `POST /api/messages`
+- `GET /api/messages/:userId`
+- `GET /health`
+
 Swagger UI is available at `/api-docs` while the server is running.
+The raw OpenAPI JSON is available at `/api-docs.json`.
 
 More setup and development details are in [DevReadMand.md](DevReadMand.md).

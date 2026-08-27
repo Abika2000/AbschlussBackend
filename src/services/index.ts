@@ -1,6 +1,7 @@
 export {
   createToken,
   createUser,
+  getCurrentUser,
   loginUser,
   logoutUser,
   requireLogin

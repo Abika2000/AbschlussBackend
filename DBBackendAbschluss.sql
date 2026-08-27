@@ -25,18 +25,6 @@ CREATE TABLE IF NOT EXISTS `posts` (
   CONSTRAINT `fk_posts_author` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS `post_images` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `post_id` INT UNSIGNED NOT NULL,
-  `file_name` VARCHAR(255) NOT NULL,
-  `mime_type` VARCHAR(100) NOT NULL,
-  `file_data` MEDIUMBLOB NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_post_images_post` (`post_id`),
-  CONSTRAINT `fk_post_images_post` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `post_id` INT UNSIGNED NOT NULL,

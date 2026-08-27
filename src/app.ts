@@ -4,6 +4,7 @@ import { apiRateLimiter, authRateLimiter } from './middleware/rate-limit.middlew
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger.ts';
 import { routerRegister } from './routes/register.ts';
+import { chatRouter } from './routes/chat.ts';
 
 const app: Express = express();
 app.use(express.json());
@@ -19,6 +20,8 @@ app.use(apiRateLimiter);
 //#region API Declarations
 
 app.use('/api/auth', authRateLimiter, routerRegister);
+app.use('/api', chatRouter);
+app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {}, {
   persistAuthorization: true
 }));

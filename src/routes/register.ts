@@ -3,6 +3,7 @@ import {
 	createUser,
      loginUser,
     logoutUser,
+    getCurrentUser,
     requireLogin
 } from '../services/index.ts';
 
@@ -78,6 +79,23 @@ routerRegister.post('/register', createUser);
 routerRegister.post('/login', loginUser);
 /**
  * @swagger
+ * /api/auth/me:
+ *   get:
+ *     tags: [Authentication]
+ *     summary: Get the logged-in user
+ *     security: [{ bearerAuth: [] }]
+ *     responses:
+ *       200:
+ *         description: Current user
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/User' }
+ *       401: { description: Missing or invalid bearer token }
+ *       404: { description: User not found }
+ */
+routerRegister.get('/me', requireLogin, getCurrentUser);
+/**
+ * @swagger
  * /api/auth/logout:
  *   post:
  *     tags: [Authentication]
@@ -87,7 +105,7 @@ routerRegister.post('/login', loginUser);
  *         description: Token can be removed by the client
  *         content:
  *           application/json:
- *             schema: { $ref: '#/components/schemas/AuthResponse' }
+ *             schema: { $ref: '#/components/schemas/MessageResponse' }
  *       401:
  *         description: Missing or invalid bearer token
  *         content:
