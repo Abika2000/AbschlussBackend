@@ -31,7 +31,7 @@ app.get('/api-docs.json', (_req, res) => res.json(swaggerSpec));
 //#endregion
 
 
-const port = Number(process.env.PORT || 3000);
+const port = Number(process.env.PORT || 4000);
 const host = process.env.HOST || '0.0.0.0';
 
 app.listen(port, host, () => {
